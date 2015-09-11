@@ -21,8 +21,8 @@ import akka.japi.pf.ReceiveBuilder
 public class FangemottakActor(kontrollerteFangerRepository: KontrollerteFangerRepository) : AbstractActor() {
 
     init {
-        val registrerNavnOgNrActor = context().actorSelection(REGISTRERE_NAVN_OG_NR.adresse())
-        val registrerEiendelerActor = context().actorSelection(REGISTRERE_EIENDELER.adresse())
+        val registrerNavnOgNrActor = context().actorSelection(REGISTRERE_NAVN_OG_NR.adresse)
+        val registrerEiendelerActor = context().actorSelection(REGISTRERE_EIENDELER.adresse)
 
         receive(ReceiveBuilder
                 // Steg 1: registrere navn og nummer

@@ -20,12 +20,14 @@ public class RegistrerNavnOgNrActor : AbstractActor() {
     init {
         val fangeregisterService = FangeregisterService()
 
-        receive(ReceiveBuilder.match(javaClass<FangeMottattMelding>(), FI.UnitApply<FangeMottattMelding> { fangeMottatt ->
-            println("RegistrerNavnOgNrActor - Registrerer fange: " + fangeMottatt);
+        receive(ReceiveBuilder
+                .match(javaClass<FangeMottattMelding>(), FI.UnitApply<FangeMottattMelding> { fangeMottatt ->
+                    println("RegistrerNavnOgNrActor - Registrerer fange: " + fangeMottatt);
 
-            val lagretFange = fangeregisterService.lagreFange(fangeMottatt.fangenavn);
-            sender().tell(NavnOgNrRegistrertMelding(lagretFange), self());
-        }).build());
+                    val lagretFange = fangeregisterService.lagreFange(fangeMottatt.fangenavn);
+                    sender().tell(NavnOgNrRegistrertMelding(lagretFange), self());
+                })
+                .build());
     }
 
     companion object {

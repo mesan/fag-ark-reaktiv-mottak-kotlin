@@ -42,12 +42,7 @@ public class AtomFeedGenerator {
     public fun hentFeedSomStreng(feed: Feed): String {
         val wfo = WireFeedOutput()
 
-        try {
-            return wfo.outputString(feed)
-        } catch (e: FeedException) {
-            throw RuntimeException(e)
-        }
-
+        return wfo.outputString(feed)
     }
 
     private fun leggElementIFeed(feed: Feed, entry: Entry) {
@@ -69,11 +64,6 @@ public class AtomFeedGenerator {
         val sdf = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ")
         val RFC3339DateString = sdf.format(Date())
 
-        try {
-            return sdf.parseObject(RFC3339DateString) as Date
-        } catch (e: ParseException) {
-            throw RuntimeException(e)
-        }
-
+        return sdf.parseObject(RFC3339DateString) as Date
     }
 }

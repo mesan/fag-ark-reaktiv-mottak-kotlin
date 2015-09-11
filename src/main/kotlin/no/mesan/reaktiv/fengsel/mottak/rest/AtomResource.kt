@@ -22,6 +22,7 @@ import com.rometools.rome.io.FeedException
 Path("/atom")
 Produces(value = MediaType.APPLICATION_ATOM_XML)
 public class AtomResource(private val kontrollerteFangerRepository: KontrollerteFangerRepository) {
+
     private val atomFeedGenerator: AtomFeedGenerator
 
     init {
@@ -31,15 +32,14 @@ public class AtomResource(private val kontrollerteFangerRepository: Kontrollerte
     GET
     Path("/alt")
     Timed
-    throws(FeedException::class)
     public fun hentAlleAtomTing(): String {
-        val newFeed = atomFeedGenerator.lagNyFeed("Fangemottak")
+        val nyFeed = atomFeedGenerator.lagNyFeed("Fangemottak")
         val fanger = kontrollerteFangerRepository.hentAlleFanger()
 
         for (fange in fanger) {
-            atomFeedGenerator.leggTilElement(newFeed, fange.navn, fange.id)
+            atomFeedGenerator.leggTilElement(nyFeed, fange.navn, fange.id)
         }
 
-        return atomFeedGenerator.hentFeedSomStreng(newFeed)
+        return atomFeedGenerator.hentFeedSomStreng(nyFeed)
     }
 }

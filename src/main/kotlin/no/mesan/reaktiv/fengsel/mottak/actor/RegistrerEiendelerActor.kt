@@ -24,15 +24,17 @@ public class RegistrerEiendelerActor : AbstractActor() {
     init {
         val logistikkService = LogistikkService()
 
-        receive(ReceiveBuilder.match(javaClass<NavnOgNrRegistrertMelding>(), FI.UnitApply<NavnOgNrRegistrertMelding> { fangeRegistrert ->
-            println("RegistrerEiendelerActor - Registrerer fange: " + fangeRegistrert);
+        receive(ReceiveBuilder
+                .match(javaClass<NavnOgNrRegistrertMelding>(), FI.UnitApply<NavnOgNrRegistrertMelding> { fangeRegistrert ->
+                    println("RegistrerEiendelerActor - Registrerer fange: " + fangeRegistrert);
 
-            val fange = fangeRegistrert.fange;
-            val eiendeler = genererEiendeler();
+                    val fange = fangeRegistrert.fange;
+                    val eiendeler = genererEiendeler();
 
-            logistikkService.registrerEiendeler(fange, eiendeler);
-            sender().tell(EiendelerRegistrertMelding(fange, eiendeler), self());
-        }).build());
+                    logistikkService.registrerEiendeler(fange, eiendeler);
+                    sender().tell(EiendelerRegistrertMelding(fange, eiendeler), self());
+                })
+                .build());
     }
 
     // TODO kunne vært litt mer spennende og tilfeldig

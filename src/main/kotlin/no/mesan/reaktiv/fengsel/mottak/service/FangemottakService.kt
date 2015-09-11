@@ -28,8 +28,8 @@ public class FangemottakService(kontrollerteFangerRepository: KontrollerteFanger
         fangemottak = akka.actorOf(FangemottakActor.props(kontrollerteFangerRepository))
 
         // Initialiserer actorer som utfører arbeidet
-        akka.actorOf(RegistrerNavnOgNrActor.props(), REGISTRERE_NAVN_OG_NR.navn())
-        akka.actorOf(RegistrerEiendelerActor.props(), REGISTRERE_EIENDELER.navn())
+        akka.actorOf(RegistrerNavnOgNrActor.props(), REGISTRERE_NAVN_OG_NR.navn)
+        akka.actorOf(RegistrerEiendelerActor.props(), REGISTRERE_EIENDELER.navn)
     }
 
     /**

@@ -1,7 +1,5 @@
 package no.mesan.reaktiv.fengsel.mottak.logistikk
 
-import java.util.stream.Collectors
-
 import no.mesan.reaktiv.fengsel.mottak.domene.Fange
 import no.mesan.reaktiv.fengsel.mottak.service.LogLevelVelgerService
 
@@ -24,7 +22,7 @@ public class LogistikkService {
                 .setLogLevel(logLevelVelgerService.velgLogLevel())
                 .build()
 
-        logistikkRestService = restAdapter.create(javaClass<LogistikkRestService>())
+        logistikkRestService = restAdapter.create(LogistikkRestService::class.java)
     }
 
     public fun registrerEiendeler(fange: Fange, eiendeler: List<Eiendel>) {
@@ -36,7 +34,8 @@ public class LogistikkService {
 
         val eiendelListe = EiendelListeDTO(eiendelDTOer)
 
-        println(java.lang.String.format("LogistikkService - Sender %s sine eiendeler til logistikk rest-tjeneste: %s", fange, eiendelListe))
+        println(java.lang.String.format("LogistikkService - Sender %s sine eiendeler til logistikk rest-tjeneste: %s",
+                fange, eiendelListe))
         logistikkRestService.leggTilEiendeler(fange.id, eiendelListe)
     }
 }

@@ -13,6 +13,6 @@ import retrofit.http.POST
  */
 public interface MottakRestService {
 
-    POST("/mottak/")
-    public fun startFangemottak(Body fange: NyFangeDTO): Response
+    @POST("/mottak/")
+    public fun startFangemottak(@Body fange: NyFangeDTO): Response
 }

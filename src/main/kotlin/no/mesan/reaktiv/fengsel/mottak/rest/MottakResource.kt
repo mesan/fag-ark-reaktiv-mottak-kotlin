@@ -16,13 +16,13 @@ import com.codahale.metrics.annotation.Timed
 
  * @author Svein Melby
  */
-Path("/mottak/")
-Consumes(value = MediaType.APPLICATION_JSON)
+@Path("/mottak/")
+@Consumes(value = MediaType.APPLICATION_JSON)
 public class MottakResource(private val template: String?, private val fangemottakService: FangemottakService) {
 
-    POST
-    Timed
-    public fun startFangemottak(Valid fange: NyFangeDTO) {
+    @POST
+    @Timed
+    public fun startFangemottak(@Valid fange: NyFangeDTO) {
         fangemottakService.mottaFange(fange.getFulltNavn())
     }
 }

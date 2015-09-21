@@ -2,7 +2,6 @@ package no.mesan.reaktiv.fengsel.mottak.actor
 
 import java.util.Arrays
 
-import no.mesan.reaktiv.fengsel.mottak.domene.Fange
 import no.mesan.reaktiv.fengsel.mottak.logistikk.Eiendel
 import no.mesan.reaktiv.fengsel.mottak.logistikk.LogistikkService
 import no.mesan.reaktiv.fengsel.mottak.melding.EiendelerRegistrertMelding
@@ -12,7 +11,6 @@ import akka.actor.AbstractActor
 import akka.actor.Props
 import akka.japi.pf.FI
 import akka.japi.pf.ReceiveBuilder
-import no.mesan.reaktiv.fengsel.mottak.melding.FangeMottattMelding
 
 /**
  * Actor for å registrere en fanges eiendeler.
@@ -25,7 +23,7 @@ public class RegistrerEiendelerActor : AbstractActor() {
         val logistikkService = LogistikkService()
 
         receive(ReceiveBuilder
-                .match(javaClass<NavnOgNrRegistrertMelding>(), FI.UnitApply<NavnOgNrRegistrertMelding> { fangeRegistrert ->
+                .match(NavnOgNrRegistrertMelding::class.java, FI.UnitApply { fangeRegistrert ->
                     println("RegistrerEiendelerActor - Registrerer fange: " + fangeRegistrert);
 
                     val fange = fangeRegistrert.fange;
@@ -46,7 +44,7 @@ public class RegistrerEiendelerActor : AbstractActor() {
 
     companion object {
         public fun props(): Props {
-            return Props.create(javaClass<RegistrerEiendelerActor>())
+            return Props.create(RegistrerEiendelerActor::class.java)
         }
     }
 }

@@ -3,7 +3,6 @@ package no.mesan.reaktiv.fengsel.mottak.fangeregister
 import no.mesan.reaktiv.fengsel.mottak.domene.Fange
 import no.mesan.reaktiv.fengsel.mottak.dto.FangeDTO
 import no.mesan.reaktiv.fengsel.mottak.service.LogLevelVelgerService
-import org.apache.commons.lang3.Validate
 
 import retrofit.RestAdapter
 
@@ -25,7 +24,7 @@ public class FangeregisterService {
                 .setLogLevel(logLevelVelgerService.velgLogLevel())
                 .build()
 
-        fangeregisterRestService = restAdapter.create(javaClass<FangeregisterRestService>())
+        fangeregisterRestService = restAdapter.create(FangeregisterRestService::class.java)
     }
 
     public fun lagreFange(fangenavn: String): Fange {

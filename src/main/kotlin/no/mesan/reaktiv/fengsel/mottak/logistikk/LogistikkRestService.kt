@@ -12,6 +12,6 @@ import retrofit.http.Path
  */
 public interface LogistikkRestService {
 
-    PUT("/logistikk/eier/{fangeId}")
-    public fun leggTilEiendeler(Path("fangeId") fangeId: String, Body eiendelListe: EiendelListeDTO): Response
+    @PUT("/logistikk/eier/{fangeId}")
+    public fun leggTilEiendeler(@Path("fangeId") fangeId: String, @Body eiendelListe: EiendelListeDTO): Response
 }

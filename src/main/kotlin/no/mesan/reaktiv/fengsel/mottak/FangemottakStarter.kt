@@ -9,7 +9,6 @@ import no.mesan.reaktiv.fengsel.mottak.repository.KontrollerteFangerRepository
 import io.dropwizard.Application
 import io.dropwizard.setup.Bootstrap
 import io.dropwizard.setup.Environment
-import kotlin.platform.platformStatic
 
 /**
  * Starts the server.
@@ -44,7 +43,8 @@ public class FangemottakStarter : Application<FangemottakConfig>() {
     }
 
     companion object {
-        platformStatic fun main(args: Array<String>) {
+        @JvmStatic
+        fun main(args: Array<String>) {
             FangemottakStarter().run(arrayOf("server", "fangemottak.yml"))
         }
     }

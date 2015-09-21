@@ -14,10 +14,10 @@ import org.hibernate.validator.constraints.NotBlank
  */
 public class NyFangeDTO {
 
-    NotBlank
+    @NotBlank
     public var fornavn: String? = null
 
-    NotNull
+    @NotNull
     public var etternavn: String? = null
 
     public constructor() {

@@ -12,6 +12,6 @@ import retrofit.http.POST
  */
 public interface FangeregisterRestService {
 
-    POST("/fanger")
-    public fun opprettFange(Body fangeDTO: FangeDTO): FangeDTO
+    @POST("/fanger")
+    public fun opprettFange(@Body fangeDTO: FangeDTO): FangeDTO
 }

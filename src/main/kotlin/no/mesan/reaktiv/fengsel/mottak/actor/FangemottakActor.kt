@@ -8,7 +8,6 @@ import no.mesan.reaktiv.fengsel.mottak.melding.FangeMottattMelding
 import no.mesan.reaktiv.fengsel.mottak.repository.KontrollerteFangerRepository
 
 import akka.actor.AbstractActor
-import akka.actor.ActorSelection
 import akka.actor.Props
 import akka.japi.pf.FI
 import akka.japi.pf.ReceiveBuilder
@@ -26,17 +25,17 @@ public class FangemottakActor(kontrollerteFangerRepository: KontrollerteFangerRe
 
         receive(ReceiveBuilder
                 // Steg 1: registrere navn og nummer
-                .match(javaClass<FangeMottattMelding>(), FI.UnitApply<FangeMottattMelding> { fangeMottattMelding ->
+                .match(FangeMottattMelding::class.java, FI.UnitApply { fangeMottattMelding ->
                     println("FangemottakActor - " + fangeMottattMelding)
                     registrerNavnOgNrActor.tell(fangeMottattMelding, self())
                 })
                 // Steg 2: registrere eiendeler
-                .match(javaClass<NavnOgNrRegistrertMelding>(), FI.UnitApply<NavnOgNrRegistrertMelding> { navnOgNrRegistrertMelding ->
+                .match(NavnOgNrRegistrertMelding::class.java, FI.UnitApply { navnOgNrRegistrertMelding ->
                     println("FangemottakActor - " + navnOgNrRegistrertMelding);
                     registrerEiendelerActor.tell(navnOgNrRegistrertMelding, self());
                 })
                 // Steg 3: gå til metalldetektor
-                .match(javaClass<EiendelerRegistrertMelding>(), FI.UnitApply<EiendelerRegistrertMelding> { eiendelerRegistrertMelding ->
+                .match(EiendelerRegistrertMelding::class.java, FI.UnitApply { eiendelerRegistrertMelding ->
                     println("FangemottakActor - " + eiendelerRegistrertMelding);
 
                     // TODO midlertidig løsning for å teste atom+rest. Skal gjøres av actor for visitering
@@ -47,7 +46,7 @@ public class FangemottakActor(kontrollerteFangerRepository: KontrollerteFangerRe
 
     companion object {
         public fun props(kontrollerteFangerRepository: KontrollerteFangerRepository): Props {
-            return Props.create(javaClass<FangemottakActor>(), kontrollerteFangerRepository)
+            return Props.create(FangemottakActor::class.java, kontrollerteFangerRepository)
         }
     }
 }

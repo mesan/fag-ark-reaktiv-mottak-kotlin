@@ -1,6 +1,5 @@
 package no.mesan.reaktiv.fengsel.mottak.actor
 
-import no.mesan.reaktiv.fengsel.mottak.domene.Fange
 import no.mesan.reaktiv.fengsel.mottak.fangeregister.FangeregisterService
 import no.mesan.reaktiv.fengsel.mottak.melding.FangeMottattMelding
 import no.mesan.reaktiv.fengsel.mottak.melding.NavnOgNrRegistrertMelding
@@ -21,7 +20,7 @@ public class RegistrerNavnOgNrActor : AbstractActor() {
         val fangeregisterService = FangeregisterService()
 
         receive(ReceiveBuilder
-                .match(javaClass<FangeMottattMelding>(), FI.UnitApply<FangeMottattMelding> { fangeMottatt ->
+                .match(FangeMottattMelding::class.java, FI.UnitApply { fangeMottatt ->
                     println("RegistrerNavnOgNrActor - Registrerer fange: " + fangeMottatt);
 
                     val lagretFange = fangeregisterService.lagreFange(fangeMottatt.fangenavn);
@@ -32,7 +31,7 @@ public class RegistrerNavnOgNrActor : AbstractActor() {
 
     companion object {
         public fun props(): Props {
-            return Props.create(javaClass<RegistrerNavnOgNrActor>())
+            return Props.create(RegistrerNavnOgNrActor::class.java)
         }
     }
 }
